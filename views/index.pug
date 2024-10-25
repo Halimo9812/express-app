@@ -1,6 +1,15 @@
+doctype html
 html
-  head
-    title= title
-  body
-    h1= message 
-    .container
+    head
+        title Create New User
+        link(rel="stylesheet", href="static/css/createNewUser.csss")
+    body
+        .container
+        form(action='/api/user', method='POST')
+            label(for='username') Username:
+            input(type='text', name='username', required)
+            br
+            label(for='displayName') Display Name:
+            input(type='text', name='displayName', required)
+            br
+            button(type='submit' value = 'Create User') Create User

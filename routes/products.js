@@ -32,4 +32,18 @@ router.put("/:id", (req, res) => {
     res.send(mockProducts[index]);
 });
 
+// Delete a product
+
+router.delete("/:id", (req, res) => {
+    const parsedId = parseInt(req.params.id, 10);
+    const index = mockProducts.findIndex((product) => product.id === parsedId);
+    
+    if (index === -1) {
+        return res.status(404).json({ error: "Product not found" });
+    }
+
+    mockProducts.splice(index, 1);
+    res.status(204).send(); // No content
+});
+
 export default router;

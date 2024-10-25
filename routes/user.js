@@ -28,10 +28,23 @@ router.get("/:id", (req, res) => {
 
 // Create a new user
 router.post("/", (req, res) => {
-    const newUser = { id: mockUsers.length + 1, ...req.body };
+    const { username, displayName } = req.body;
+    
+    // Validate incoming data
+    if (!username || !displayName) {
+        return res.status(400).json({ error: "Username and display name are required." });
+    }
+
+    const newUser = {
+        id: mockUsers.length > 0 ? mockUsers[mockUsers.length - 1].id + 1 : 1,
+        username,
+        displayName,
+    };
+    
     mockUsers.push(newUser);
-    res.status(201).render('user/new', { user: newUser });
+    res.status(201).json(newUser);
 });
+
 // Update a user
 router.put("/:id", (req, res) => {
     const parsedId = parseInt(req.params.id, 10);

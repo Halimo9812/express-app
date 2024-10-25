@@ -15,6 +15,7 @@ app.set("views", "./views");
 app.use(express.static('public'))
 app.use("/api/user", userRouter);
 app.use("/api/products", productRoutes);
+app.use(express.urlencoded({ extended: true }));
 
 //home route
 app.get('/', (req, res) => {
@@ -22,6 +23,12 @@ app.get('/', (req, res) => {
     //res.send('Hey')
     res.status(200).send({ msg: 'Hey' });
 });
+
+//  render the create user form
+app.get('/create-user', (req, res) => {
+  res.render('createUser'); 
+});
+
 
 app.listen(PORT, () => {
   console.log(`Server is running on port: ${PORT}`);
